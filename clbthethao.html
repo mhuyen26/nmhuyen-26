@@ -1,566 +1,271 @@
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
-<meta charset="utf-8">
-<link href="style.css" rel="stylesheet" type="text/css">
-<style>
-    :root{
-      --bg:#f6f7fb;
-      --text:#1f2937;
-      --muted:#6b7280;
-      --card:#ffffff;
-
-      --primary:#0ea5e9;
-      --primary2:#22c55e;
-
-      --ndc-red:#8b1e1e;
-      --shadow: 0 18px 45px rgba(2, 6, 23, 0.12);
-      --shadow2: 0 10px 25px rgba(2, 6, 23, 0.10);
-
-      --radius:18px;
-    }
-
-    *{
-      box-sizing:border-box;
-      margin:0;
-      padding:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;
-    }
-
-    body{
-      background: radial-gradient(1200px 700px at 15% 0%, #eef6ff 0%, transparent 55%),
-                  radial-gradient(1100px 650px at 85% 10%, #eafff2 0%, transparent 55%),
-                  var(--bg);
-      color:var(--text);
-      line-height:1.6;
-    }
-
-    a{ color:inherit; text-decoration:none; }
-    img{ display:block; max-width:100%; }
-    .container{
-      max-width:1100px;
-      margin:0 auto;
-      padding: 0 18px;
-    }
-
-    /* ===== NAV (mini) ===== */
-    .topbar{
-      position:sticky;
-      top:0;
-      z-index:50;
-      backdrop-filter: blur(10px);
-      background: rgba(246,247,251,.7);
-      border-bottom: 1px solid rgba(15,23,42,0.08);
-    }
-    .topbar-inner{
-      max-width:1100px;
-      margin:0 auto;
-      padding:10px 18px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      font-weight:800;
-      letter-spacing:.2px;
-    }
-    .brand-badge{
-      width:38px;height:38px;
-      border-radius:12px;
-      background: linear-gradient(135deg, var(--primary), var(--primary2));
-      box-shadow: 0 10px 25px rgba(14,165,233,.25);
-      display:grid;
-      place-items:center;
-      color:#fff;
-      font-weight:900;
-    }
-    .brand small{
-      display:block;
-      font-weight:600;
-      color:var(--muted);
-      font-size:12px;
-      margin-top:-2px;
-    }
-
-    .top-links{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    .chip{
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(15,23,42,0.10);
-      background: rgba(255,255,255,.65);
-      font-weight:700;
-      font-size:13px;
-      transition:.2s;
-    }
-    .chip:hover{
-      transform: translateY(-2px);
-      border-color: rgba(14,165,233,.35);
-      box-shadow: 0 12px 25px rgba(2,6,23,.08);
-    }
-
-    /* ===== HERO BANNER ===== */
-    .hero{
-      position:relative;
-      width:100%;
-      min-height: 360px;
-      border-bottom-left-radius: 28px;
-      border-bottom-right-radius: 28px;
-      overflow:hidden;
-    }
-    .hero img{
-      width:100%;
-      height:100%;
-      min-height: 360px;
-      object-fit:cover;
-      filter: saturate(1.1) contrast(1.05);
-      transform: scale(1.02);
-    }
-    .hero::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:
-        radial-gradient(900px 420px at 20% 20%, rgba(34,197,94,.40), transparent 60%),
-        radial-gradient(900px 520px at 70% 10%, rgba(14,165,233,.35), transparent 55%),
-        linear-gradient(to top, rgba(2,6,23,.55), rgba(2,6,23,.05));
-      pointer-events:none;
-    }
-
-    .hero-content{
-      position:absolute;
-      inset:0;
-      display:flex;
-      align-items:flex-end;
-    }
-    .hero-card{
-      width:min(820px, 92%);
-      margin: 0 auto 26px;
-      padding: 18px 18px;
-      border-radius: 20px;
-      background: rgba(255,255,255,.82);
-      border: 1px solid rgba(255,255,255,.55);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-    }
-
-    .hero-title{
-      color: var(--ndc-red);
-      font-size: 26px;
-      font-weight: 900;
-      line-height:1.25;
-    }
-    .hero-sub{
-      margin-top:6px;
-      color:var(--muted);
-      font-weight:600;
-    }
-    .hero-actions{
-      margin-top:14px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:10px 14px;
-      border-radius: 999px;
-      border:1px solid rgba(15,23,42,.12);
-      background:#fff;
-      font-weight:800;
-      font-size:14px;
-      transition:.25s;
-      cursor:pointer;
-    }
-    .btn:hover{ transform: translateY(-2px); box-shadow: 0 14px 25px rgba(2,6,23,.10); }
-    .btn.primary{
-      border:none;
-      color:#fff;
-      background: linear-gradient(135deg, var(--primary), var(--primary2));
-      box-shadow: 0 16px 30px rgba(34,197,94,.20);
-    }
-
-    /* ===== SLOGAN ===== */
-    .section{
-      padding: 58px 0 10px;
-    }
-    .section-head{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom: 18px;
-    }
-    .section-head h2{
-      font-size: 22px;
-      font-weight: 900;
-      letter-spacing: .2px;
-    }
-    .section-head p{
-      color:var(--muted);
-      font-weight:600;
-      max-width: 520px;
-    }
-
-    .slogan-grid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:16px;
-    }
-
-    .slogan{
-      border-radius: var(--radius);
-      background: var(--card);
-      border: 1px solid rgba(15,23,42,0.08);
-      box-shadow: var(--shadow2);
-      padding: 22px 18px;
-      transition: .28s ease;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .slogan::before{
-      content:"";
-      position:absolute;
-      inset:-120px;
-      background: radial-gradient(circle at 30% 30%, rgba(14,165,233,.16), transparent 40%),
-                  radial-gradient(circle at 70% 60%, rgba(34,197,94,.15), transparent 42%);
-      transform: rotate(10deg);
-      pointer-events:none;
-    }
-
-    .slogan:hover{
-      transform: translateY(-7px);
-      box-shadow: 0 20px 45px rgba(2,6,23,.16);
-    }
-
-    .slogan-top{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      margin-bottom:10px;
-      position:relative;
-    }
-    .icon{
-      width:44px;height:44px;
-      border-radius: 14px;
-      display:grid;
-      place-items:center;
-      color:#fff;
-      font-size:20px;
-      font-weight:900;
-      background: linear-gradient(135deg, rgba(14,165,233,1), rgba(34,197,94,1));
-      box-shadow: 0 12px 22px rgba(14,165,233,.22);
-      flex: 0 0 auto;
-    }
-    .slogan h3{
-      font-size: 16px;
-      font-weight: 900;
-      color:#7a1f1f;
-      position:relative;
-    }
-    .slogan p{
-      color:#475569;
-      font-weight:600;
-      font-size:14px;
-      position:relative;
-    }
-
-    /* ===== CLUB LIST ===== */
-    .club-list{
-      padding: 40px 0 25px;
-    }
-
-    .club{
-      display:grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap:18px;
-      align-items:stretch;
-
-      background: var(--card);
-      border: 1px solid rgba(15,23,42,0.08);
-      border-radius: 22px;
-      overflow:hidden;
-      box-shadow: var(--shadow2);
-
-      margin-bottom: 18px;
-      transition: .3s ease;
-    }
-
-    .club:hover{
-      transform: translateY(-8px);
-      box-shadow: 0 24px 55px rgba(2,6,23,.16);
-      border-color: rgba(14,165,233,.25);
-    }
-
-    .club.reverse{
-      grid-template-columns: 0.9fr 1.1fr;
-    }
-
-    .club-content{
-      padding: 22px 20px;
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      gap:12px;
-    }
-
-    .club-title{
-      font-size: 22px;
-      font-weight: 950;
-      color:#7a1f1f;
-    }
-    .club-desc{
-      color:#475569;
-      font-weight:600;
-      font-size:15px;
-    }
-    .club-meta{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:6px;
-    }
-    .tag{
-      padding:6px 10px;
-      border-radius:999px;
-      font-weight:800;
-      font-size:12px;
-      border:1px solid rgba(15,23,42,.10);
-      background: rgba(248,250,252,.9);
-      color:#334155;
-    }
-
-    .club-cta{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:8px;
-    }
-
-    .club-media{
-      position:relative;
-      min-height: 220px;
-    }
-
-    .club-media a{
-      display:block;
-      width:100%;
-      height:100%;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .club-media img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      transition: .45s ease;
-    }
-    .club:hover .club-media img{
-      transform: scale(1.08);
-    }
-
-    .club-media::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background: linear-gradient(to top, rgba(2,6,23,.55), transparent 60%);
-      opacity:.0;
-      transition:.3s ease;
-      pointer-events:none;
-    }
-    .club:hover .club-media::after{ opacity: 1; }
-
-    .media-badge{
-      position:absolute;
-      right:12px;
-      top:12px;
-      padding:8px 11px;
-      border-radius:999px;
-      background: rgba(255,255,255,.88);
-      border:1px solid rgba(255,255,255,.5);
-      font-weight:900;
-      font-size:12px;
-      color:#0f172a;
-      box-shadow: 0 14px 25px rgba(2,6,23,.12);
-      z-index:2;
-    }
-
-    /* ===== FOOTER ===== */
-    footer{
-      margin-top: 50px;
-      border-top-left-radius: 28px;
-      border-top-right-radius: 28px;
-      background:
-        radial-gradient(900px 420px at 10% 20%, rgba(34,197,94,.25), transparent 55%),
-        radial-gradient(900px 420px at 90% 30%, rgba(14,165,233,.22), transparent 55%),
-        #0b2a14;
-      color:#eaf7ee;
-      padding: 46px 0 26px;
-    }
-
-    .footer-grid{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 24px;
-      align-items:start;
-    }
-
-    .footer-title{
-      font-weight:950;
-      font-size:18px;
-      margin-bottom:12px;
-    }
-    .footer-p{
-      color: rgba(234,247,238,.88);
-      font-weight:600;
-      font-size:14px;
-      margin-bottom:10px;
-    }
-    .footer-links{
-      list-style:none;
-      display:grid;
-      gap:10px;
-      padding-left:0;
-    }
-
-    .footer-links a{
-      display:inline-flex;
-      gap:10px;
-      align-items:center;
-      padding:10px 12px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.14);
-      font-weight:800;
-      color:#eaf7ee;
-      transition:.25s ease;
-    }
-    .footer-links a:hover{
-      transform: translateY(-2px);
-      background: rgba(255,255,255,.14);
-    }
-
-    .copyright{
-      margin-top:22px;
-      padding-top: 14px;
-      border-top: 1px solid rgba(255,255,255,.14);
-      color: rgba(234,247,238,.75);
-      font-weight:600;
-      font-size: 13px;
-      text-align:center;
-    }
-
-    /* ===== Responsive ===== */
-    @media (max-width: 900px){
-      .slogan-grid{ grid-template-columns: 1fr; }
-      .club, .club.reverse{
-        grid-template-columns: 1fr;
-      }
-      .club-media{
-        min-height: 210px;
-      }
-      .footer-grid{
-        grid-template-columns: 1fr;
-      }
-      .hero-title{ font-size: 22px; }
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CLB Thể thao - THPT Nguyễn Đình Chiểu</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-	<div class="topbar">
-  <div class="topbar-inner">
-    <div class="brand">
+
+<!-- ===== TOPBAR ===== -->
+<header class="topbar">
+  <div class="container topbar-inner">
+    <a href="index.html" class="brand">
       <div class="brand-badge">NDC</div>
-      <div>
-        CLB Ngoại khóa
+      <div class="brand-text">
+        <span>CLB Thể thao</span>
         <small>THPT Nguyễn Đình Chiểu</small>
+      </div>
+    </a>
+
+    <nav class="top-links">
+      <a class="chip" href="clbthiennguyen.html">Thiện nguyện</a>
+      <a class="chip" href="clbtruyenthong.html">Truyền thông</a>
+      <a class="chip" href="clbthethao.html">Thể thao</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== PAGE HERO ===== -->
+<section class="page-hero sport">
+  <div class="container page-hero-inner">
+    <div class="page-hero-left">
+      <span class="pill">🏆 Năng động • Kỷ luật • Đồng đội</span>
+      <h1>CLB Thể thao</h1>
+      <p>
+        CLB Thể thao là nơi giúp học sinh rèn luyện thể lực, tinh thần đồng đội,
+        kỷ luật và phát triển phong cách sống lành mạnh.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn primary" href="#dangky">Đăng ký tham gia</a>
+        <a class="btn" href="#mon">Môn thể thao</a>
+      </div>
+
+      <div class="mini-stats">
+        <div class="mini-stat">
+          <strong>3+</strong>
+          <span>Môn chính</span>
+        </div>
+        <div class="mini-stat">
+          <strong>Hàng tuần</strong>
+          <span>Lịch luyện tập</span>
+        </div>
+        <div class="mini-stat">
+          <strong>Fair-play</strong>
+          <span>Tinh thần thể thao</span>
+        </div>
       </div>
     </div>
 
-    <div class="top-links">
-      <a class="chip" href="clbthiennguyen.html" target="_blank">CLB Thiện nguyện</a>
-      <a href="clbthiennguyen.html" class="btn">
-    Xem chi tiết
-</a>
-      <a class="chip" href="clbthethao.html" target="_blank">CLB Thể thao</a>
-      <a href="clbthethao.html" class="btn">
-    Xem chi tiết
-</a>
-      <a class="chip" href="clbtruyenthong.html" target="_blank">CLB Truyền thông</a>
-      <a href="clbtruyenthong.html" class="btn">
-    Xem chi tiết
-</a>
+    <div class="page-hero-right">
+      <div class="hero-photo">
+        <img src="assets/img/sport2.jpg" alt="CLB Thể thao" />
+      </div>
+
+      <div class="note-card">
+        <h3>🔥 Slogan</h3>
+        <p>“Khỏe để học tập tốt – mạnh để trưởng thành!”</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION: MÔN THỂ THAO ===== -->
+<section class="section" id="mon">
+  <div class="container">
+    <div class="section-head">
+      <h2>Các môn thể thao</h2>
+      <p>
+        Chọn môn phù hợp để luyện tập – thi đấu – và kết nối bạn bè.
+      </p>
+    </div>
+
+    <div class="sport-grid">
+      <div class="sport-card">
+        <div class="sport-icon">🏸</div>
+        <h3>Cầu lông</h3>
+        <p>Rèn phản xạ, tốc độ và kỹ năng xử lý tình huống nhanh.</p>
+        <span class="level">Phù hợp: mọi cấp độ</span>
+      </div>
+
+      <div class="sport-card">
+        <div class="sport-icon">⚽</div>
+        <h3>Bóng đá</h3>
+        <p>Đồng đội, thể lực, chiến thuật và tinh thần chiến đấu.</p>
+        <span class="level">Phù hợp: thích vận động mạnh</span>
+      </div>
+
+      <div class="sport-card">
+        <div class="sport-icon">🏐</div>
+        <h3>Bóng chuyền</h3>
+        <p>Tăng sức bền, phối hợp nhóm và kỹ năng chuyền – đập.</p>
+        <span class="level">Phù hợp: teamwork</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION: LỊCH SINH HOẠT ===== -->
+<section class="section alt" id="lich">
+  <div class="container">
+    <div class="section-head">
+      <h2>Lịch sinh hoạt</h2>
+      <p>CLB sinh hoạt định kỳ theo tuần. Có thể thay đổi theo thời tiết.</p>
+    </div>
+
+    <div class="schedule">
+      <div class="schedule-card">
+        <h3>📅 Buổi tập</h3>
+        <ul>
+          <li><strong>Thứ 3:</strong> 16:00 – 17:30</li>
+          <li><strong>Thứ 6:</strong> 16:00 – 17:30</li>
+          <li><strong>Chủ nhật:</strong> 07:00 – 08:30</li>
+        </ul>
+      </div>
+
+      <div class="schedule-card">
+        <h3>📌 Địa điểm</h3>
+        <ul>
+          <li>Sân bóng trường</li>
+          <li>Nhà đa năng</li>
+          <li>Khu thể dục</li>
+        </ul>
+      </div>
+
+      <div class="schedule-card">
+        <h3>✅ Quy định</h3>
+        <ul>
+          <li>Trang phục thể thao</li>
+          <li>Đi đúng giờ</li>
+          <li>Tôn trọng luật & đồng đội</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION: ĐĂNG KÝ ===== -->
+<section class="section" id="dangky">
+  <div class="container">
+    <div class="register">
+      <div class="register-left">
+        <h2>Đăng ký tham gia CLB</h2>
+        <p>
+          Điền thông tin bên dưới để tham gia CLB Thể thao.
+          Khi gửi thành công, popup sẽ hiển thị ngay.
+        </p>
+
+        <div class="quick-info">
+          <div class="qi">✅ Rèn luyện thể lực</div>
+          <div class="qi">✅ Kết nối bạn bè</div>
+          <div class="qi">✅ Thi đấu giao lưu</div>
+        </div>
+      </div>
+
+      <div class="register-right">
+        <form class="form" id="sportForm">
+          <label>
+            Họ và tên
+            <input type="text" name="name" placeholder="VD: Trần Văn B" required />
+          </label>
+
+          <label>
+            Lớp
+            <input type="text" name="class" placeholder="VD: 11A2" required />
+          </label>
+
+          <label>
+            Môn bạn muốn tham gia
+            <select name="sport" required>
+              <option value="">-- Chọn môn --</option>
+              <option value="Cầu lông">Cầu lông</option>
+              <option value="Bóng đá">Bóng đá</option>
+              <option value="Bóng chuyền">Bóng chuyền</option>
+            </select>
+          </label>
+
+          <label>
+            Email / SĐT
+            <input type="text" name="contact" placeholder="VD: 09xx... hoặc email@gmail.com" required />
+          </label>
+
+          <button type="submit" class="btn primary form-btn">Gửi đăng ký</button>
+          <p class="form-hint">*CLB sẽ liên hệ xác nhận lịch luyện tập.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== POPUP ===== -->
+<div class="modal" id="sportModal" aria-hidden="true">
+  <div class="modal-overlay" data-close="true"></div>
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <h3>🏆 Đăng ký thành công!</h3>
+    <p>Bạn đã đăng ký tham gia CLB Thể thao. Hẹn gặp bạn trong buổi tập sắp tới!</p>
+
+    <div class="modal-actions">
+      <button class="btn primary" id="closeSportModal">Đóng</button>
+      <a class="btn" href="index.html">Về trang chủ</a>
     </div>
   </div>
 </div>
 
-<header>
-	<div class="banner">
-		<h1>Câu lạc bộ trường THPT Nguyễn Đình Chiểu</h1>
-	</div>
-	<div class="slogan">
-		<div class="row">
-			<div class="block_3"><h2>Thiện nguyện</h2><p>Lòng thương người xuất phát từ tấm lòng</p></div>
-			<div class="block_3"><h2>Truyền thông</h2><p>Nơi mọi ý tưởng truyền thông và thông tin đều được thoả sức bay cao</p></div>
-			<div class="block_3"><h2>Thể thao</h2><p>Làm hết sức - Chơi hết mình</p></div>
-		</div>
-	</div>
-</header>
-<table width="100%">
-	<tr>
-		<td rowspan="2" style="background-color: blue">
-		</td>
-		<td width="40%"><img src="pictures/img-4.jpg" class="img"></td>
-		<td width="40%"><img src="pictures/img-5.jpg" class="img"></td>
-	</tr>
-	<tr>
-		<td colspan="2" style="text-align: justify; padding:1.5em;">
-			<h2 id="thethao">CLB Thể thao</h2>
-			<p>Với đa dạng các môn thể thao từ các môn có "bóng" đến các môn như võ thuật, cầu lông,.... Các bạn sẽ được thoả mãn đam mê và được cháy hết mình với nó. Các bạn cũng có thể dễ dàng "𝐟𝐥𝐞𝐱" những skill để chứng tỏ với crush hoặc những người bạn của chúng ta. Chỉ cần các bạn có đam mê và có thể lực tốt thì chắc chắn bạn sẽ là một mảnh ghép của CLB.</p>
-		</td>
-	</tr>
-	<td 
-</table>
+<!-- ===== FOOTER ===== -->
 <footer id="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-title">Liên hệ</div>
-        <div class="footer-p">📞 0275 382 2568</div>
-        <div class="footer-p">
-          🌐 <a style="text-decoration:underline" href="https://thptndc.edu.vn/" target="_blank">Trường THPT Nguyễn Đình Chiểu</a>
-        </div>
-        <div class="footer-p">
-          Theo dõi các CLB để cập nhật hoạt động mới nhất và tham gia cùng bạn bè nhé!
-        </div>
-      </div>
-
-      <div>
-        <div class="footer-title">Khám phá thêm</div>
-        <ul class="footer-links">
-          <li><a href="https://www.facebook.com/share/1JvWXsnrjJ/" target="_blank">🏆 CLB Thể thao</a></li>
-          <li><a href="https://www.facebook.com/share/1SN7RuSovE/" target="_blank">📸 CLB Truyền thông</a></li>
-          <li><a href="https://www.facebook.com/share/17zFSaPiWr/" target="_blank">💚 CLB Thiện nguyện</a></li>
-        </ul>
-      </div>
+  <div class="container footer-grid">
+    <div>
+      <h3 class="footer-title">CLB Thể thao</h3>
+      <p class="footer-p">🏆 Năng động – Kỷ luật – Fair-play</p>
+      <p class="footer-p">📍 THPT Nguyễn Đình Chiểu</p>
+      <p class="footer-p">📞 0275 382 2568</p>
     </div>
 
-    <div class="copyright">
-      © THPT Nguyễn Đình Chiểu — CLB Ngoại khóa | Designed (refresh) by bạn + ChatGPT
+    <div>
+      <h3 class="footer-title">Điều hướng</h3>
+      <ul class="footer-links">
+        <li><a href="index.html">🏠 Trang chủ</a></li>
+        <li><a href="#mon">⚽ Môn thể thao</a></li>
+        <li><a href="#dangky">📝 Đăng ký</a></li>
+      </ul>
     </div>
   </div>
+
+  <div class="copyright">
+    © THPT Nguyễn Đình Chiểu — CLB Ngoại khóa
+  </div>
 </footer>
+
+<script>
+  // ===== Fix lỗi form & popup =====
+  const form = document.getElementById("sportForm");
+  const modal = document.getElementById("sportModal");
+  const closeBtn = document.getElementById("closeSportModal");
+
+  function openModal(){
+    modal.classList.add("show");
+    modal.setAttribute("aria-hidden", "false");
+  }
+  function closeModal(){
+    modal.classList.remove("show");
+    modal.setAttribute("aria-hidden", "true");
+  }
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    openModal();
+    form.reset();
+  });
+
+  closeBtn.addEventListener("click", closeModal);
+
+  modal.addEventListener("click", function(e){
+    if(e.target.dataset.close === "true") closeModal();
+  });
+</script>
+
 </body>
 </html>
